@@ -55,20 +55,22 @@
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(100%);
             visibility: hidden;
+            pointer-events: none;
         }
         #mobile-menu.active {
             transform: translateX(0);
             visibility: visible;
+            pointer-events: auto;
         }
 
         .section-padding {
-            padding-left: 1.25rem;
-            padding-right: 1.25rem;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
         }
         @media (min-width: 640px) {
             .section-padding {
-                padding-left: 2rem;
-                padding-right: 2rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
             }
         }
     </style>
@@ -103,7 +105,7 @@
         </div>
     </nav>
 
-    <!-- Fixed Mobile Menu -->
+    <!-- Fixed Mobile Menu Overlay -->
     <div id="mobile-menu" class="fixed inset-0 z-[100] bg-[#0f172a] flex flex-col md:hidden">
         <div class="flex justify-between items-center p-6 border-b border-slate-800/50">
             <div class="flex items-center space-x-2">
@@ -228,8 +230,6 @@
                     <div class="flex flex-wrap gap-2">
                         <span class="skill-tag px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase">REST Assured</span>
                         <span class="skill-tag px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase">GraphQL</span>
-                        <span class="skill-tag px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase">AWS Foundations</span>
-                        <span class="skill-tag px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase">Oracle Cloud (OCI)</span>
                     </div>
                 </div>
                 <!-- Tools & CI/CD -->
@@ -335,27 +335,6 @@
                         <p class="text-[10px] text-slate-500 uppercase font-bold">Automation Anywhere</p>
                     </div>
                 </div>
-                <div class="glass-card p-6 rounded-2xl flex items-center space-x-4 border-l-4 border-orange-500">
-                    <i class="fab fa-aws text-orange-400 text-2xl"></i>
-                    <div>
-                        <h4 class="text-sm font-bold text-white">AWS Academy Graduate</h4>
-                        <p class="text-[10px] text-slate-500 uppercase font-bold">Cloud Foundations</p>
-                    </div>
-                </div>
-                <div class="glass-card p-6 rounded-2xl flex items-center space-x-4 border-l-4 border-red-500">
-                    <i class="fas fa-shield-alt text-red-400 text-2xl"></i>
-                    <div>
-                        <h4 class="text-sm font-bold text-white">OCI Associate Architect</h4>
-                        <p class="text-[10px] text-slate-500 uppercase font-bold">Oracle Cloud</p>
-                    </div>
-                </div>
-                <div class="glass-card p-6 rounded-2xl flex items-center space-x-4 border-l-4 border-yellow-500">
-                    <i class="fas fa-terminal text-yellow-500 text-2xl"></i>
-                    <div>
-                        <h4 class="text-sm font-bold text-white">Problem Solving (Basic)</h4>
-                        <p class="text-[10px] text-slate-500 uppercase font-bold">HackerRank</p>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -370,7 +349,7 @@
                     <span class="text-blue-400 font-bold">2019 - 2023</span>
                 </div>
                 <p class="text-slate-300 font-medium text-lg">Vel Tech Rangarajan Dr. Sagunthala R&D Institute</p>
-                <p class="text-slate-500 text-sm mt-2 uppercase font-bold tracking-widest">First Class with Distinction | Chennai, India</p>
+                <p class="text-slate-500 text-sm mt-2 uppercase font-bold tracking-widest">9.34 CGPA | Chennai, India</p>
             </div>
         </div>
     </section>
@@ -383,7 +362,7 @@
             <div class="flex flex-col sm:flex-row justify-center gap-6 pt-4">
                 <a href="mailto:nagateja2704@gmail.com" class="w-full sm:w-auto px-12 py-5 bg-white text-blue-600 rounded-2xl font-extrabold hover:shadow-2xl transition-all flex items-center justify-center space-x-3 group">
                     <i class="fas fa-envelope group-hover:-translate-y-1 transition-transform"></i>
-                    <span>nagateja2704@gmail.com</span>
+                    <span>Drop an Email</span>
                 </a>
                 <a href="https://www.linkedin.com/in/naga-te_ja-arepalli" target="_blank" class="w-full sm:w-auto px-12 py-5 bg-blue-600 text-white rounded-2xl font-extrabold hover:bg-blue-500 transition-all flex items-center justify-center space-x-3">
                     <i class="fab fa-linkedin text-xl"></i>
@@ -392,14 +371,14 @@
             </div>
             <div class="pt-4">
                 <p class="text-slate-400 font-bold text-lg">+91 9347763464</p>
-                <p class="text-slate-500 text-[10px] uppercase tracking-widest mt-2">Hyderabad Area • India</p>
+                <p class="text-slate-500 text-[10px] uppercase tracking-widest mt-2">AndhraPradesh • India</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="py-12 section-padding border-t border-slate-800/30 text-center">
-        <p class="text-slate-500 text-xs">© 2026 Naga Teja Arepalli. Designed for precision & reliability.</p>
+        <p class="text-slate-500 text-xs">© 2026 Naga Teja Arepalli.</p>
     </footer>
 
     <script>
@@ -451,60 +430,66 @@
             requestAnimationFrame(animate);
         }
 
-        // --- EXECUTION STARTS HERE ---
-        window.addEventListener('resize', resize);
-        // Initial setup
-        resize();
-        animate();
+        // --- WRAP ALL EVENT LISTENERS IN DOMContentLoaded ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial setup for animation
+            resize();
+            animate();
+            window.addEventListener('resize', resize);
 
-        // Mobile Menu Logic (Improved)
-        const openBtn = document.getElementById('open-menu');
-        const closeBtn = document.getElementById('close-menu');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+            // Mobile Menu Logic (Improved)
+            const openBtn = document.getElementById('open-menu');
+            const closeBtn = document.getElementById('close-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
 
-        const toggleMenu = (isActive) => {
-            if (isActive) {
-                mobileMenu.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Prevent scroll
-            } else {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = ''; // Restore scroll
+            const toggleMenu = (isActive) => {
+                if (isActive) {
+                    mobileMenu.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent scroll
+                } else {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = ''; // Restore scroll
+                }
+            };
+
+            if (openBtn) {
+                openBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleMenu(true);
+                });
             }
-        };
 
-        openBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleMenu(true);
-        });
-
-        closeBtn.addEventListener('click', () => toggleMenu(false));
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => toggleMenu(false));
-        });
-
-        // Close on outside click
-        document.addEventListener('click', (e) => {
-            if (mobileMenu.classList.contains('active') && !mobileMenu.contains(e.target) && e.target !== openBtn) {
-                toggleMenu(false);
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => toggleMenu(false));
             }
-        });
 
-        // Intersection Observer for Scroll reveal
-        const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('opacity-100');
-                    entry.target.classList.remove('translate-y-10');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => toggleMenu(false));
+            });
+
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (mobileMenu && mobileMenu.classList.contains('active') && !mobileMenu.contains(e.target) && e.target !== openBtn) {
+                    toggleMenu(false);
                 }
             });
-        }, observerOptions);
 
-        document.querySelectorAll('section').forEach(section => {
-            section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
-            observer.observe(section);
+            // Intersection Observer for Scroll reveal
+            const observerOptions = { threshold: 0.1 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100');
+                        entry.target.classList.remove('translate-y-10');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+                observer.observe(section);
+            });
         });
     </script>
 </body>
